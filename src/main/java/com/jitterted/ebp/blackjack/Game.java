@@ -102,10 +102,10 @@ public class Game {
         while (!playerBusted) {
             displayGameState();
             String playerChoice = inputFromPlayer().toLowerCase();
-            if (playerChoice.startsWith("s")) {
+            if (playerStands(playerChoice)) {
                 break;
             }
-            if (playerChoice.startsWith("h")) {
+            if (playerHits(playerChoice)) {
                 dealCardTo(playerHand);
                 if (handValueOf(playerHand) > 21) {
                     playerBusted = true;
@@ -115,6 +115,14 @@ public class Game {
             }
         }
         return playerBusted;
+    }
+
+    private boolean playerHits(String playerChoice) {
+        return playerChoice.startsWith("h");
+    }
+
+    private boolean playerStands(String playerChoice) {
+        return playerChoice.startsWith("s");
     }
 
     public int handValueOf(List<Card> hand) {

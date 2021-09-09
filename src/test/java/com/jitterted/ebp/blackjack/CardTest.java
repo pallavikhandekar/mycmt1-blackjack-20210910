@@ -47,4 +47,13 @@ class CardTest {
                 .contains(ansiRedString);
     }
 
+    @Test
+    public void cardDisplaysSuitAsSymbol() throws Exception {
+        Card spadesCard = new Card("♠", "9");
+
+        assertThat(spadesCard.display())
+                .contains("│    ♠    │");
+    }
+
+
 }
