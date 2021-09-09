@@ -1,32 +1,25 @@
 package com.jitterted.ebp.blackjack;
 
-import java.util.List;
-
 public enum Suit {
-    HEARTS("♥"),
-    CLUBS("♣"),
-    DIAMONDS("♦"),
-    SPADES("♠")
+    HEARTS("♥", true),
+    CLUBS("♣", false),
+    DIAMONDS("♦", true),
+    SPADES("♠", false)
     ;
 
-    static final List<String> SUITS = List.of("♠", "♦", "♥", "♣");
     private final String symbol;
+    private final boolean isRed;
 
-    Suit(String symbol) {
+    Suit(String symbol, boolean isRed) {
         this.symbol = symbol;
-    }
-
-    // SCAFFOLDING - A "BRIDGE" to compatibility
-    public static Suit from(String symbol) {
-        for (Suit suit : values()) {
-            if (suit.symbol.equals(symbol)) {
-                return suit;
-            }
-        }
-        return null;
+        this.isRed = isRed;
     }
 
     public String symbol() {
         return symbol;
+    }
+
+    boolean isRed() {
+        return isRed;
     }
 }
