@@ -54,4 +54,20 @@ public class Hand {
                 .stream()
                 .anyMatch(card -> card.rankValue() == 1);
     }
+
+    boolean isBusted() {
+        return value() > 21;
+    }
+
+    boolean shouldDealerHit() {
+        return value() <= 16;
+    }
+
+    boolean pushes(Hand hand) {
+        return value() == hand.value();
+    }
+
+    boolean beats(Hand hand) {
+        return hand.value() < value();
+    }
 }
