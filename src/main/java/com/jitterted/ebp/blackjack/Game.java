@@ -63,22 +63,29 @@ public class Game {
         dealerTurn();
 
         displayFinalGameState();
-        determineOutcome();
+        GameOutcome gameOutcome = determineOutcome();
+        playerBalance += gameOutcome.payoffAmount(playerBetAmount);
     }
 
-    private void determineOutcome() {
+    private GameOutcome determineOutcome() {
         if (playerHand.isBusted()) {
             System.out.println("You Busted, so you lose.  💸");
+            return GameOutcome.PLAYER_LOSES;
         } else if (dealerHand.isBusted()) {
             System.out.println("Dealer went BUST, Player wins! Yay for you!! 💵");
+            return GameOutcome.PLAYER_WINS;
         } else if (playerHand.beats(dealerHand)) {
             System.out.println("You beat the Dealer! 💵");
-        } else if (dealerHand.pushes(playerHand)) {
+            return GameOutcome.PLAYER_WINS;
+        } else if (playerHand.pushes(dealerHand)) {
             System.out.println("Push: You tie with the Dealer. 💸");
+            return GameOutcome.PLAYER_PUSHES;
         } else {
             System.out.println("You lost to the Dealer. 💸");
+            return GameOutcome.PLAYER_LOSES;
         }
     }
+
 
     private void dealerTurn() {
         // Dealer makes its choice automatically based on a simple heuristic (<=16, hit, 17>=stand)
@@ -175,20 +182,5 @@ public class Game {
         playerBalance -= betAmount;
         playerBetAmount = betAmount;
     }
-
-    public void playerWins() {
-        playerBalance += playerBetAmount * 2;
-    }
-
-    public void playerLoses() {
-
-    }
-
-    public void playerPushes() {
-        playerBalance += playerBetAmount;
-    }
-
-    public void playerWinsBlackjack() {
-        playerBalance += playerBetAmount * 2.5;
-    }
+π
 }
